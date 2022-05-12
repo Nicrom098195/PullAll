@@ -1,3 +1,4 @@
+
 # PullAll
 PullAll is a videogame developed by Nicrom098195, and this is the source code of all.
 
@@ -12,5 +13,5 @@ To play PullAll, you must to extract the zip file, and run the Jar archive.
 The **res** directory is the folder for the resources, and if you want to edit it you must to use **64x64** images
 
 # Alerts
--The alpha1 version don't have the source code because
--If you are from linux, you must to run the jar file from the terminal, and not from the file manager
+- The alpha1 does not have the source code because I lost it
+- If you are from linux, you must to run the jar file from the terminal, and not from the file manager running `java -jar file.jar`
