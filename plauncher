@@ -1,0 +1,48 @@
+#!/bin/bash
+echo "Plauncher "$(cat $HOME/.pullall/launcher/version.txt)
+if ! [[ -d $HOME/.pullall ]];then
+	mkdir $HOME/.pullall
+	mkdir $HOME/.pullall/launcher
+	mkdir $HOME/.pullall/versions
+fi
+if [[ $1 == "" ]];then
+	lv=$(wget https://pastebin.com/raw/SY37JHHk -q -O -)
+	echo "Lastest launcher version: "$lv
+	echo "Installed launcher version: "$(cat $HOME/.pullall/launcher/version.txt)
+	if [[ $lv == $(cat $HOME/.pullall/launcher/version.txt) ]];then
+		echo "No updates found"
+		notify-send "No updates found"
+	else
+		notify-send "Launcher update available, installing it"
+		rm $HOME/.pullall/launcher/PullAll.jar
+		wget https://github.com/Nicrom098195/Nicrom098195.github.io/blob/main/PullAll.jar?raw=true -q -O $HOME/.pullall/launcher/PullAll.jar
+		rm $HOME/.pullall/launcher/version.txt
+		touch $HOME/.pullall/launcher/version.txt
+		echo $(wget https://pastebin.com/raw/SY37JHHk -q -O -) >> $HOME/.pullall/launcher/version.txt
+	fi
+	if [[ -f $HOME/.pullall/launcher/PullAll.jar ]];then
+		java -jar $HOME/.pullall/launcher/PullAll.jar
+	else
+		java -jar /opt/PullAll/PullAll.jar
+	fi
+else
+	if [[ -f $HOME"/.pullall/versions/$1/ng-$1.jar" ]];then
+		cd $HOME"/.pullall/versions/$1/"
+		clear
+		java -jar ng-$1.jar
+		clear
+	else
+		notify-send "Installing $1"
+		echo "Version $1 not installed, installing it"
+		mkdir $HOME/.pullall/versions/$1 &> /dev/null
+		version=$(wget "https://pastebin.com/raw/UufzBdbL" -q -O - | jq "."$1 -r)
+		echo "Downloading $1 from $version"
+		wget -O $HOME/.pullall/versions/$1/$1.zip $version &> /dev/null
+		cd $HOME/.pullall/versions/$1
+		echo "Extracting $1"
+		unzip $1.zip &> /dev/null
+		echo "Version $1 installed, running it"
+		java -jar ng-$1.jar
+	fi
+fi
+
