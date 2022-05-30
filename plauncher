@@ -15,7 +15,7 @@ if [[ $1 == "" ]];then
 	else
 		notify-send "Launcher update available, installing it"
 		rm $HOME/.pullall/launcher/PullAll.jar
-		wget https://github.com/Nicrom098195/Nicrom098195.github.io/blob/main/PullAll.jar?raw=true -q -O $HOME/.pullall/launcher/PullAll.jar
+		wget https://github.com/Nicrom098195/PullAll/raw/main/PullAll.jar -q -O $HOME/.pullall/launcher/PullAll.jar
 		rm $HOME/.pullall/launcher/version.txt
 		touch $HOME/.pullall/launcher/version.txt
 		echo $(wget https://pastebin.com/raw/SY37JHHk -q -O -) >> $HOME/.pullall/launcher/version.txt
